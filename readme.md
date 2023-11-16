@@ -23,3 +23,7 @@
 - `npm run format` -> Format your code using Prettier **MANDATORY BEFORE MERGING**
 - `npm run lint` -> Test and fix your code using Linter **MANDATORY BEFORE MERGING**
 - `npm run swagger` -> Generate swagger file **MANDATORY BEFORE MERGING**
+
+## PROJECT URL
+Site URL: [Latam Med](https://latam-med.onrender.com/).
+
