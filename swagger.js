@@ -6,8 +6,7 @@ const doc = {
     description: 'Emilio Sosa Movies API - BYUI'
   },
   host: 'localhost:3000',
-  schemes: ['https'],
-  
+  schemes: ['https']
 };
 
 const outputFile = './swagger-output.json';

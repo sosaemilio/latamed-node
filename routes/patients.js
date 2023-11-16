@@ -8,7 +8,6 @@ router.get('/patient/{patientId}/treatment'); // GET /patient/{patientId}/treatm
 router.get('/patient/{patientId}'); // GET /patient/{patientId}
 router.post('/patient/{patientId}'); // POST /patient/{patientId}
 router.post('/patient/{patientId}/appointments'); // POST /patient/{patientId}/appointments
-router.delete('/patient/{patientId}')// DELETE /patient/{patientId}
-
+router.delete('/patient/{patientId}'); // DELETE /patient/{patientId}
 
 module.exports = router;
