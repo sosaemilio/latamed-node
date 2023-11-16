@@ -1,17 +1,13 @@
 {
-  "env": {
-    "commonjs": true,
-    "es2021": true,
-    "node": true,
-    "jest": true
-  },
-  "extends": ["eslint:recommended", "plugin:prettier/recommended", "airbnb-base"],
-  "parserOptions": {
-    "ecmaVersion": "latest"
-  },
-  "rules": {
-    "radix": "off",
-    "no-console": "off",
-    "comma-dangle": "off"
-  }
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": "standard",
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "rules": {
+    }
 }
