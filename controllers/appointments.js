@@ -1,5 +1,5 @@
 const ObjectId = require('mongodb').ObjectId;
-const mongoappointment = require('../db/connect.ts');
+const mongoappointment = require('../db/connect.js');
 
 const addAppointment = async (req, res) => {
     const newAppointment = {
