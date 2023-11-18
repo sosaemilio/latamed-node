@@ -1,11 +1,10 @@
-const router = require('express').Router()
-const doctorsController = require('../controllers/doctors')
+const router = require('express').Router();
+const doctorsController = require('../controllers/doctors');
 
-router.post('/doctor') // POST /doctor
-router.post('/doctor/login') // GET /doctor/login
-router.post('/doctor/logout') // GET /doctor/logout
-router.get('/doctor/{username}') // GET /doctor/{username}
-router.put('/doctor/{username}') // PUT /doctor/{username}
-router.delete('/doctor/{username}') // DELETE /doctor/{username}
+router.post('/', doctorsController.addDoctor); // POST /doctor
+router.get('/', doctorsController.getDoctors); // GET /doctors
+router.get('/:username', doctorsController.getDoctorByName); // GET /doctor/{username}
+router.put('/:id', doctorsController.updateDoctorById); // PUT /doctor/{username}
+router.delete('/:id', doctorsController.deleteDoctor); // DELETE /doctor/{username}
 
-module.exports = router
+module.exports = router;

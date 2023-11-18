@@ -25,5 +25,5 @@
 - `npm run swagger` -> Generate swagger file **MANDATORY BEFORE MERGING**
 
 ## PROJECT URL
-Site URL: [Latam Med](https://latam-med.onrender.com/).
 
+Site URL: [Latam Med](https://latam-med.onrender.com/).
