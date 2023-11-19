@@ -5,7 +5,7 @@ const getHistory= (req, res) => {
   mongodb
   .getDb()
   .db('latammed')
-  .collection('doctors')
+  .collection('medical_history')
   .find({ username: doctorUsername00 })
   .toArray((err,lists)=>
   {
@@ -19,7 +19,7 @@ const getHistory= (req, res) => {
 
 const getSingleHistory = async (req, res) => {
   const userId = new ObjectId(req.params.id);
-  const result = await mongodb.getDb().db().collection('collectionName').find({ _id: userId });
+  const result = await mongodb.getDb().db().collection('medical_history').find({ _id: userId });
   result.toArray().then((lists) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(lists[0]);
@@ -35,7 +35,7 @@ const createNewinformation = async (req, res) => {
     history: req.body.history
     
   };
-  const response = await mongodb.getDb().db().collection('collectionName').insertOne(contact);
+  const response = await mongodb.getDb().db().collection('medical_history').insertOne(contact);
   if (response.acknowledged) {
     res.status(201).json(response);
   } else {
