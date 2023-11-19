@@ -7,7 +7,9 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/patients/": {
       "get": {
@@ -137,7 +139,9 @@
     "/appointments/{patientId}": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "patientId",
@@ -159,7 +163,9 @@
     "/appointments/{doctorId}": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "doctorId",
@@ -181,7 +187,9 @@
     "/appointments/{id}": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -270,7 +278,9 @@
             "name": "body",
             "in": "body",
             "schema": {
-              "required": ["username"],
+              "required": [
+                "username"
+              ],
               "properties": {
                 "firstName": {
                   "type": "string"
@@ -299,7 +309,9 @@
       },
       "get": {
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -313,7 +325,9 @@
     "/doctors/{username}": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "username",
@@ -343,7 +357,9 @@
             "name": "body",
             "in": "body",
             "schema": {
-              "required": ["username"],
+              "required": [
+                "username"
+              ],
               "properties": {
                 "firstName": {
                   "type": "string"
