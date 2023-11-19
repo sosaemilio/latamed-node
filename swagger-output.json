@@ -136,7 +136,7 @@
         }
       }
     },
-    "/history/history/patient/{patientId}": {
+    "/history/{patientId}": {
       "get": {
         "description": "",
         "produces": [
@@ -160,7 +160,7 @@
         }
       }
     },
-    "/history/history/doctor/{doctorId}": {
+    "/history/{doctorId}": {
       "get": {
         "description": "",
         "produces": [
@@ -181,7 +181,7 @@
         }
       }
     },
-    "/history/history/{historyId}": {
+    "/history/{historyId}": {
       "get": {
         "description": "",
         "produces": [
