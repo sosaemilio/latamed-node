@@ -2,6 +2,7 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
 
 const getHistory= (req, res) => {
+  //gethistorial
   mongodb
   .getDb()
   .db('latammed')
@@ -18,8 +19,13 @@ const getHistory= (req, res) => {
 };
 
 const getSingleHistory = async (req, res) => {
+  //GetSingleHistory
   const userId = new ObjectId(req.params.id);
-  const result = await mongodb.getDb().db().collection('medical_history').find({ _id: userId });
+  const result = await mongodb
+  .getDb()
+  .db('latammed')
+  .collection('medical_history')
+  .find({ _id: userId });
   result.toArray().then((lists) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(lists[0]);
@@ -27,6 +33,7 @@ const getSingleHistory = async (req, res) => {
 };
 
 const createNewinformation = async (req, res) => {
+  //create newinformation
   const contact = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -45,7 +52,7 @@ const createNewinformation = async (req, res) => {
 
 const updateNewinformation = async (req, res) => {
   const userId = new ObjectId(req.params.id);
-  // be aware of updateOne if you only want to update specific fields
+  //update of information
   const contact = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -57,7 +64,7 @@ const updateNewinformation = async (req, res) => {
   const response = await mongodb
   .getDb()
   .db('latammed')
-  .collection('doctors')
+  .collection('medical_history')
   .find({ username:  getPatientById })
     .replaceOne({ _id:  getPatientById }, contact);
   console.log(response);
@@ -71,8 +78,8 @@ const updateNewinformation = async (req, res) => {
 const deleteNewinformation = async (req, res) => {
   const userId = new ObjectId(req.params.id);
   const response = await mongodb.getDb()
-  .db()
-  .collection('')
+  .db('latammed')
+  .collection('medical_history')
   .remove({ _id:  getPatientById }, true);
   console.log(response);
   if (response.deletedCount > 0) {
