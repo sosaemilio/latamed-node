@@ -4,7 +4,7 @@ const mongoappointment = require('../db/connect.js');
 const addAppointment = async (req, res) => {
   const newAppointment = {
     date: req.body.date,
-    time: req.body.hour,
+    time: req.body.time,
     patientId: req.body.patientId,
     doctorId: req.body.doctorId,
     notes: req.body.notes
@@ -20,6 +20,7 @@ const addAppointment = async (req, res) => {
     res.status(500).json(result1.error || 'Appointment scheduling error.' + result1.acknowledged);
   }
 };
+
 
 const getAppointmentsByPatientId = async (req, res) => {
   const patientId = new ObjectId(req.params.patientId);
@@ -60,12 +61,13 @@ const getAppointmentsByDoctorId = async (req, res) => {
 };
 
 const getAppointmentById = async (req, res) => {
-  const appointmentId = new ObjectId(req.params.Id);
+  const appointmentId = new ObjectId(req.params.id);
+
   mongoappointment
     .getDb()
     .db('latammed')
     .collection('appointments')
-    .find({ _id: appointmentId })
+    .find({ notes: appointmentId })
     .toArray((err, lists) => {
       if (err) {
         res.status(400).json({ message: err });
@@ -83,7 +85,7 @@ const updateAppointmentById = async (req, res) => {
 
   const updateAppointment = {
     date: req.body.date,
-    time: req.body.hour,
+    time: req.body.time,
     patientId: req.body.patientId,
     doctorId: req.body.doctorId,
     notes: req.body.notes
