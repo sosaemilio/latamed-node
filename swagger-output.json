@@ -277,7 +277,7 @@
                 "date": {
                   "example": "any"
                 },
-                "hour": {
+                "time": {
                   "example": "any"
                 },
                 "patientId": {
@@ -392,7 +392,7 @@
                 "date": {
                   "example": "any"
                 },
-                "hour": {
+                "time": {
                   "example": "any"
                 },
                 "patientId": {
