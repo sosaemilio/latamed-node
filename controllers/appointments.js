@@ -4,14 +4,14 @@ const mongoappointment = require('../db/connect.js');
 const addAppointment = async (req, res) => {
   const newAppointment = {
     date: req.body.date,
-    time: req.body.hour,
+    time: req.body.time,
     patientId: req.body.patientId,
     doctorId: req.body.doctorId,
     notes: req.body.notes
   };
   const result1 = await mongoappointment
     .getDb()
-    .db()
+    .db('latammed')
     .collection('appointments')
     .insertOne(newAppointment);
   if (result1.acknowledged) {
@@ -21,11 +21,12 @@ const addAppointment = async (req, res) => {
   }
 };
 
+
 const getAppointmentsByPatientId = async (req, res) => {
   const patientId = new ObjectId(req.params.patientId);
   mongoappointment
     .getDb()
-    .db()
+    .db('latammed')
     .collection('appointments')
     .find({ patientId: patientId })
     .toArray((err, lists) => {
@@ -44,7 +45,7 @@ const getAppointmentsByDoctorId = async (req, res) => {
   const doctorId = new ObjectId(req.params.doctorId);
   mongoappointment
     .getDb()
-    .db()
+    .db('latammed')
     .collection('appointments')
     .find({ doctorId: doctorId })
     .toArray((err, lists) => {
@@ -60,12 +61,13 @@ const getAppointmentsByDoctorId = async (req, res) => {
 };
 
 const getAppointmentById = async (req, res) => {
-  const appointmentId = new ObjectId(req.params.Id);
+  const appointmentId = new ObjectId(req.params.id);
+
   mongoappointment
     .getDb()
-    .db()
+    .db('latammed')
     .collection('appointments')
-    .find({ _id: appointmentId })
+    .find({ notes: appointmentId })
     .toArray((err, lists) => {
       if (err) {
         res.status(400).json({ message: err });
@@ -83,14 +85,14 @@ const updateAppointmentById = async (req, res) => {
 
   const updateAppointment = {
     date: req.body.date,
-    time: req.body.hour,
+    time: req.body.time,
     patientId: req.body.patientId,
     doctorId: req.body.doctorId,
     notes: req.body.notes
   };
   const result2 = await mongoappointment
     .getDb()
-    .db()
+    .db('latammed')
     .collection('appointments')
     .replaceOne({ _id: appointmentId }, updateAppointment);
   if (result2.modifiedCount > 0) {
@@ -105,7 +107,7 @@ const deleteAppointment = async (req, res) => {
 
   const result3 = await mongoappointment
     .getDb()
-    .db()
+    .db('latammed')
     .collection('appointments')
     .deleteOne({ _id: appointmentId }, true);
   if (result3.deletedCount > 0) {
@@ -118,7 +120,7 @@ const deleteAppointment = async (req, res) => {
 const getAppointments = (req, res) => {
   mongoappointment
     .getDb()
-    .db()
+    .db('latammed')
     .collection('appointments')
     .find()
     .toArray((err, lists) => {
