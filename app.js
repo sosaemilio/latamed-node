@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const routes = require('./routes/index');
 const mongodb = require('./db/connect');
+const { auth } = require('express-openid-connect');
 
 const app = express();
 const port = 3000;
