@@ -21,3 +21,5 @@ mongodb.initDb((err) => {
     });
   }
 });
+
+module.exports = app
