@@ -7,7 +7,7 @@ const getDoctors = async (req, res) => {
     const doctors = await mongodb.getDb().db('latammed').collection('doctors').find({});
     doctors.toArray().then((lists) => {
       res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(lists);
+      res.status(200).json(lists[0]);
     });
   } catch (err) {
     res.status(500).json(err);

@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
 dotenv.config();
 
-describe('insert', () => {
+describe('Mongo DB Connection', () => {
     let connection;
     let db;
 
