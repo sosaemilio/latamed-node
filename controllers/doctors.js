@@ -1,5 +1,6 @@
 const mongodb = require('../db/connect');
 const { ObjectId } = require('mongodb');
+const { usernameExists } = require('../middleware/doctorUsernameValidator');
 
 const getDoctors = async (req, res) => {
   try {
@@ -50,6 +51,15 @@ const addDoctor = async function (req, res) {
   } */
 
   const newDoctor = req.body;
+  if (newDoctor.username) {
+    usernameExists(newDoctor.username).then((result) => {
+      console.log(result);
+      if (result) {
+        res.status(500).send("User exist");
+        return;
+      }
+    });
+  }
   const result = await mongodb
     .getDb()
     .db('latammed')

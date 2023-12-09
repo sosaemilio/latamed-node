@@ -2,8 +2,8 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'Movies API',
-    description: 'Emilio Sosa Movies API - BYUI'
+    title: 'LatamMed API',
+    description: 'Medical Appoinments API'
   },
   host: 'localhost:3000',
   schemes: ['http']
