@@ -1,9 +1,10 @@
 const router = require('express').Router();
+const { requiresAuth } = require('express-openid-connect');
 
-router.use('/patients', require('./patients'));
-router.use('/history', require('./history'));
-router.use('/appointments', require('./appointments'));
-router.use('/doctors', require('./doctors'));
+router.use('/patients', requiresAuth(), require('./patients'));
+router.use('/history', requiresAuth(), require('./history'));
+router.use('/appointments', requiresAuth(), require('./appointments'));
+router.use('/doctors', requiresAuth(), require('./doctors'));
 router.use('/api-docs', require('./swagger'));
 
 module.exports = router;

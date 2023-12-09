@@ -279,13 +279,13 @@
                 "time": {
                   "example": "any"
                 },
-                "patientId": {
+                "notes": {
                   "example": "any"
                 },
                 "doctorId": {
                   "example": "any"
                 },
-                "notes": {
+                "patientId": {
                   "example": "any"
                 }
               }
@@ -296,56 +296,11 @@
           "201": {
             "description": "Created"
           },
+          "412": {
+            "description": "Precondition Failed"
+          },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/appointments/{patientId}": {
-      "get": {
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "patientId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      }
-    },
-    "/appointments/{doctorId}": {
-      "get": {
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "doctorId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }
@@ -436,6 +391,54 @@
         }
       }
     },
+    "/appointments/{patientId}": {
+      "get": {
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/appointments/{doctorId}": {
+      "get": {
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "doctorId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/doctors/": {
       "post": {
         "description": "",
@@ -488,7 +491,7 @@
         }
       }
     },
-    "/doctors/{username}": {
+    "/doctors/{id}": {
       "get": {
         "description": "",
         "produces": [
@@ -496,7 +499,7 @@
         ],
         "parameters": [
           {
-            "name": "username",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -505,11 +508,12 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
-      }
-    },
-    "/doctors/{id}": {
+      },
       "put": {
         "description": "",
         "parameters": [
@@ -554,6 +558,27 @@
         "parameters": [
           {
             "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/doctors/{username}": {
+      "get": {
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
             "in": "path",
             "required": true,
             "type": "string"

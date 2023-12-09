@@ -21,62 +21,70 @@ const addAppointment = async (req, res) => {
   }
 };
 
-
 const getAppointmentsByPatientId = async (req, res) => {
-  const patientId = new ObjectId(req.params.patientId);
-  mongoappointment
+  const patientId = {
+    patientId: req.body.patientId};
+  const appPatient = await mongoappointment
     .getDb()
     .db('latammed')
     .collection('appointments')
-    .find({ patientId: patientId })
-    .toArray((err, lists) => {
-      if (err) {
-        res.status(400).json({ message: err });
-      } else if (lists[0] == undefined) {
+    .find({patientId});
+  appPatient
+    .toArray()
+    .then((lists) => {
+      if (lists[0] == undefined) {
         res.status(400).json({ message: "This patient hasn't appointments" });
       } else {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists[0]);
       }
+    })
+    .catch((err) => {
+      res.status(400).json({ message: err });
     });
 };
 
 const getAppointmentsByDoctorId = async (req, res) => {
-  const doctorId = new ObjectId(req.params.doctorId);
-  mongoappointment
+  const doctorId = req.params.doctorId;
+  const appDoctor = await mongoappointment
     .getDb()
     .db('latammed')
     .collection('appointments')
-    .find({ doctorId: doctorId })
-    .toArray((err, lists) => {
-      if (err) {
-        res.status(400).json({ message: err });
-      } else if (lists[0] == undefined) {
+    .find({ doctorId: doctorId });
+  appDoctor
+    .toArray()
+    .then((lists) => {
+      if (lists[0] == undefined) {
         res.status(400).json({ message: "This doctor hasn't appointments" });
       } else {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists[0]);
       }
+    })
+    .catch((err) =>{
+      res.status(400).json({ message: err });
     });
 };
 
 const getAppointmentById = async (req, res) => {
   const appointmentId = new ObjectId(req.params.id);
-
-  mongoappointment
+  const appById = await mongoappointment
     .getDb()
     .db('latammed')
     .collection('appointments')
-    .find({ notes: appointmentId })
-    .toArray((err, lists) => {
-      if (err) {
-        res.status(400).json({ message: err });
-      } else if (lists[0] == undefined) {
+    .find({ _id: appointmentId });
+  appById
+    .toArray()
+    .then((lists) => {
+      if (lists[0] == undefined) {
         res.status(400).json({ message: `The Appointment ${appointmentId} doesn't exist.` });
       } else {
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(lists[0]);
       }
+    })
+    .catch((er) => {
+      res.status(400).json({ message: er });
     });
 };
 
