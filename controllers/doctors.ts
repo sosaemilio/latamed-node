@@ -1,11 +1,11 @@
-const mongodb = require('../db/connect');
-const { ObjectId } = require('mongodb');
-const { usernameExists } = require('../middleware/doctorUsernameValidator');
+import mongodb from '../db/connect';
+import { ObjectId } from 'mongodb';
+import { usernameExists } from '../middleware/doctorUsernameValidator';
 
-const getDoctors = async (req, res) => {
+const getDoctors = async (req: any, res: any) => {
   try {
     const doctors = await mongodb.getDb().db('latammed').collection('doctors').find({});
-    doctors.toArray().then((lists) => {
+    doctors.toArray().then((lists: any) => {
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json(lists[0]);
     });
@@ -14,7 +14,7 @@ const getDoctors = async (req, res) => {
   }
 };
 
-const getDoctorByName = async (req, res) => {
+const getDoctorByName = async (req: any, res: any) => {
   // REMINDER: Needs to add a 404 error when it is not found
   const doctorUsername = req.params.username;
   const doctor = await mongodb
@@ -22,13 +22,15 @@ const getDoctorByName = async (req, res) => {
     .db('latammed')
     .collection('doctors')
     .find({ username: doctorUsername });
-  doctor.toArray().then((list) => {
+  doctor.toArray().then((list: any) => {
     res.setHeader('Content-Type', 'application/json');
     res.status(200).json(list);
   });
 };
 
-const addDoctor = async function (req, res) {
+
+
+const addDoctor = async (req: any, res: any) => {
   /* #swagger.parameters['body'] = { 
       in: 'body', 
       '@schema': { 
@@ -49,10 +51,10 @@ const addDoctor = async function (req, res) {
           }
       } 
   } */
-
+  
   const newDoctor = req.body;
   if (newDoctor.username) {
-    usernameExists(newDoctor.username).then((result) => {
+    usernameExists(newDoctor.username).then((result: boolean) => {
       console.log(result);
       if (result) {
         res.status(500).send("User exist");
@@ -64,14 +66,13 @@ const addDoctor = async function (req, res) {
     .getDb()
     .db('latammed')
     .collection('doctors')
-    .insertOne(newDoctor, (err) => {
+    .insertOne(newDoctor, (err: any) => {
       if (err) res.status(500).send(err);
     });
-
   if (result) res.status(201).json(result);
 };
 
-const updateDoctorById = async function (req, res) {
+const updateDoctorById = async function (req: Request, res: Response) {
   /* #swagger.parameters['body'] = { 
       in: 'body', 
       '@schema': { 
@@ -92,8 +93,8 @@ const updateDoctorById = async function (req, res) {
           }
       } 
   } */
-  const doctorId = new ObjectId(req.params.id);
-  const data = req.body;
+  const doctorId: ObjectId = new ObjectId(req.params.id);
+  const data: any = req.body;
   const result = await mongodb
     .getDb()
     .db('latammed')
@@ -102,8 +103,8 @@ const updateDoctorById = async function (req, res) {
   if (result) res.status(204).json(result);
 };
 
-const deleteDoctor = async function (req, res) {
-  const doctorId = new ObjectId(req.params.id);
+const deleteDoctor = async function (req: Request, res: Response) {
+  const doctorId: ObjectId = new ObjectId(req.params.id);
   const result = await mongodb
     .getDb()
     .db('latammed')
@@ -112,10 +113,11 @@ const deleteDoctor = async function (req, res) {
   if (result) res.status(200).json(result);
 };
 
-module.exports = {
+export {
   getDoctors,
   getDoctorByName,
   addDoctor,
   updateDoctorById,
   deleteDoctor
 };
+

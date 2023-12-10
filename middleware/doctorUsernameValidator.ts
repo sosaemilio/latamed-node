@@ -1,6 +1,6 @@
-const mongodb = require('../db/connect');
+import mongodb from '../db/connect';
 
-const usernameExists = async (doctorUsername) => {
+const usernameExists = async (doctorUsername: string): Promise<boolean> => {
     const doctor = await mongodb
         .getDb()
         .db('latammed')
@@ -15,6 +15,4 @@ const usernameExists = async (doctorUsername) => {
         });
 }
 
-module.exports = {
-    usernameExists,
-}
+export { usernameExists };
