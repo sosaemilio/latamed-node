@@ -70,12 +70,12 @@ const deleteNewinformation = async (req, res) => {
   const userId = new ObjectId(req.params.id)
   const response = await mongodb.getDb()
     .db('latammed')
-    .collection('medical_history')
-    .remove({ _id: userId }, true)
-  console.log(response)
-  if (response.deletedCount > 0) {
-    res.status(204).send()
-  } else {
+
+  try {
+    response.collection('medical_history').deleteOne({ _id: userId })
+    res.status(204).send('History Deleted')
+  } catch (error) {
+    console.error(error)
     res.status(500).json(response.error || 'Some error occurred while deleting the contact.')
   }
 }
