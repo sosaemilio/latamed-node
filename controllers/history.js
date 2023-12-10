@@ -32,7 +32,6 @@ const createNewinformation = async (req, res) => {
     birthDate: req.body.birthDate,
     email: req.body.email,
     history: req.body.history
-
   }
   const response = await mongodb.getDb().db('latammed').collection('medical_history').insertOne(contact)
   if (response.acknowledged) {

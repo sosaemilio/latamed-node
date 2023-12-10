@@ -5,8 +5,8 @@ const doc = {
     title: 'LatamMed API',
     description: 'Medical Appoinments API'
   },
-  host: 'localhost:3000',
-  schemes: ['http']
+  host: 'latam-med.onrender.com',
+  schemes: ['https']
 };
 
 const outputFile = './swagger-output.json';
