@@ -1,6 +1,8 @@
-const router = require('express').Router()
-const patients = require('../controllers/patients')
-const { getValidationRules, validateGet, deleteValidationRules, validateDelete, postValidationRules, validatePost } = require('../middleware/patientsValidator')
+import { Router } from 'express'
+import patients from '../controllers/patients'
+import { getValidationRules, validateGet, deleteValidationRules, validateDelete, postValidationRules, validatePost } from '../middleware/patientsValidator'
+
+const router = Router()
 
 // router.get('/patient/{patientId}/appointments') // GET /patient/{patientId}/appointments || FROM APPOINTMENTS
 // router.get('/patient/{patientId}/treatment') // GET /patient/{patientId}/treatment || FROM TREATMENT
@@ -12,4 +14,4 @@ router.post('/', postValidationRules(), validatePost, patients.createPatient) //
 router.put('/:id', patients.updatePatient) // PUT /patient/{patientId}
 router.delete('/:id', deleteValidationRules(), validateDelete, patients.deletePatient) // DELETE /patient/{patientId}
 
-module.exports = router
+export default router

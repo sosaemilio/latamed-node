@@ -1,12 +1,14 @@
-const router = require('express').Router()
-const appointmentsController = require('../controllers/appointments')
-const appointmentsValidate = require('../middleware/appointmentsValidator')
+import { Router } from 'express'
+import { addAppointment, getAppointmentById, getAppointmentsByPatientId, getAppointmentsByDoctorId, updateAppointmentById, deleteAppointment } from '../controllers/appointments'
+import { appointmentval } from '../middleware/appointmentsValidator'
 
-router.post('/', appointmentsValidate.appointmentval, appointmentsController.addAppointment) // POST /appointments/
-router.get('/:id', appointmentsController.getAppointmentById) // GET /appointments/{appointmentsId}
-router.get('/:patientId', appointmentsController.getAppointmentsByPatientId) // GET /appointments/{patientId}
-router.get('/:doctorId', appointmentsController.getAppointmentsByDoctorId) // GET /appointments/{doctorId}
-router.put('/:id', appointmentsController.updateAppointmentById) // PUT /appointments/{appointmentsId}
-router.delete('/:id', appointmentsController.deleteAppointment) // DELETE /appointments/{appointmentsId}
+const router = Router()
 
-module.exports = router
+router.post('/', appointmentval, addAppointment) // POST /appointments/
+router.get('/:id', getAppointmentById) // GET /appointments/{appointmentsId}
+router.get('/:patientId', getAppointmentsByPatientId) // GET /appointments/{patientId}
+router.get('/:doctorId', getAppointmentsByDoctorId) // GET /appointments/{doctorId}
+router.put('/:id', updateAppointmentById) // PUT /appointments/{appointmentsId}
+router.delete('/:id', deleteAppointment) // DELETE /appointments/{appointmentsId}
+
+export default router

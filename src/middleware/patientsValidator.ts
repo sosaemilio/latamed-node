@@ -1,27 +1,27 @@
-const { body, param, validationResult } = require('express-validator')
+import { body, param, validationResult } from 'express-validator'
+import { type NextFunction, type Request, type Response } from 'express'
 
-const getValidationRules = () => {
+export const getValidationRules = (): any[] => {
   // el id debe ser un ObjectId y está en la url
   return [
     param('id').isMongoId()
   ]
 }
 
-const validateGet = (req, res, next) => {
+export const validateGet = (req: Request, res: Response, next: NextFunction): void => {
   const errors = validationResult(req)
   if (errors.isEmpty()) {
-    return next()
+    next(); return
   }
 
-  const extractedErrors = []
-  errors.array().map(err => extractedErrors.push({ [err.path]: err.msg }))
+  const extractedErrors: Array<Record<string, string>> = errors.array().map(err => ({ [err.path]: err.msg }))
 
-  return res.status(422).json({
+  res.status(422).json({
     errors: extractedErrors
   })
 }
 
-const postValidationRules = () => {
+export const postValidationRules = (): any[] => {
   return [
     body('firstName').isString().isLength({ min: 2 }),
     body('lastName').isString().isLength({ min: 2 }),
@@ -33,47 +33,45 @@ const postValidationRules = () => {
   ]
 }
 
-const validatePost = (req, res, next) => {
+export const validatePost = (req: Request, res: Response, next: NextFunction): void => {
   const errors = validationResult(req)
   if (errors.isEmpty()) {
-    return next()
+    next(); return
   }
 
-  const extractedErrors = errors.array().map(err => ({ [err.path]: err.msg }))
+  const extractedErrors: Array<Record<string, string>> = errors.array().map(err => ({ [err.path]: err.msg }))
 
-  return res.status(422).json({
+  res.status(422).json({
     errors: extractedErrors
   })
 }
 
-const deleteValidationRules = () => {
+export const deleteValidationRules = (): any[] => {
   return [
     param('id').isMongoId()
   ]
 }
 
-const validateDelete = (req, res, next) => {
+export const validateDelete = (req: Request, res: Response, next: NextFunction): void => {
   const errors = validationResult(req)
   if (errors.isEmpty()) {
-    return next()
+    next()
   }
 }
 
-const oauthValidationRules = (req, res, next) => {
-  console.log(req.isAuthenticated())
-  if (req.isAuthenticated) {
-    return next()
-  }
+// const oauthValidationRules = (req: Request, res: Response, next: NextFunction): void => {
+//   if (req.isAuthenticated === true) {
+//     next(); return
+//   }
 
-  return res.status(401).json({ message: 'Unauthorized' })
-}
+//   res.status(401).json({ message: 'Unauthorized' })
+// }
 
-module.exports = {
+export default {
   getValidationRules,
   validateGet,
   postValidationRules,
   validatePost,
   deleteValidationRules,
-  validateDelete,
-  oauthValidationRules
+  validateDelete
 }

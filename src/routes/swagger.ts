@@ -8,4 +8,4 @@ const router = Router()
 router.use('/', swaggerUi.serve)
 router.get('/', swaggerUi.setup(swaggerDocument))
 
-module.exports = router
+export default router

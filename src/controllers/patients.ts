@@ -1,6 +1,6 @@
-// const { ObjectId } = require('mongodb')
-const connection = require('../db/connect.js')
-const { ObjectId } = require('mongodb')
+import connection from '../db/connect'
+import { ObjectId } from 'mongodb'
+import { type Request, type Response } from 'express'
 
 const collectionName = 'patients'
 
@@ -10,7 +10,7 @@ const collectionName = 'patients'
  * @param {Object} res - The response object.
  * @returns {Promise<void>} - A promise that resolves with the retrieved patients.
  */
-const getAllPatients = async (req, res) => {
+const getAllPatients = async (req: Request, res: Response): Promise<void> => {
   try {
     const db = await getDB()
     const patients = await db.collection(collectionName).find().toArray()
@@ -27,7 +27,7 @@ const getAllPatients = async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Promise<void>} - A promise that resolves when the patient is retrieved.
  */
-const getPatientById = async (req, res) => {
+const getPatientById = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params
   const patiendId = new ObjectId(id)
 
@@ -48,7 +48,7 @@ const getPatientById = async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Promise<void>} - A promise that resolves when the patient is created.
  */
-const createPatient = async (req, res) => {
+const createPatient = async (req: Request, res: Response): Promise<void> => {
   const requiredFields = [
     'firstName',
     'lastName',
@@ -60,18 +60,18 @@ const createPatient = async (req, res) => {
   ]
 
   for (const field of requiredFields) {
-    if (!req.body[field]) {
-      return res.status(400).json({
+    if (!Object.hasOwnProperty.call(req.body, field)) {
+      res.status(400).json({
         error: `Missing '${field}' in request body`
       })
+      return
     }
   }
 
   try {
     const db = await getDB()
     const newPatient = await db.collection(collectionName).insertOne(req.body)
-    console.log(newPatient)
-    if (newPatient.acknowledged) {
+    if (newPatient.acknowledged === true) {
       // return the patient
       const patient = await db.collection(collectionName).findOne({ _id: newPatient.insertedId })
       res.status(201).json(patient)
@@ -88,7 +88,7 @@ const createPatient = async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Object} The response object.
  */
-const updatePatient = async (req, res) => {
+const updatePatient = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params
   const patiendId = new ObjectId(id)
   const { body } = req
@@ -113,7 +113,7 @@ const updatePatient = async (req, res) => {
  * @param {Object} res - The response object.
  * @returns {Object} The response object with the message 'done'.
  */
-const deletePatient = async (req, res) => {
+const deletePatient = async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params
   const patiendId = new ObjectId(id)
   try {
@@ -126,11 +126,11 @@ const deletePatient = async (req, res) => {
   }
 }
 
-async function getDB () {
+async function getDB (): Promise<any> {
   return connection.getDb().db('latammed')
 }
 
-module.exports = {
+export default {
   createPatient,
   deletePatient,
   getAllPatients,

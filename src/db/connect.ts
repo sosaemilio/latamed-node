@@ -4,12 +4,13 @@ dotenv.config()
 
 let db: any
 
-const initDb = (callback: (err: Error | null, db: any) => void) => {
-  if (db !== undefined && db !== null) {
+const initDb = (callback: any): void => {
+  if (db !== null && db !== undefined) {
     console.log('Db is already initialized!')
-    callback(null, db); return
+    return callback(null, db)
   }
-  MongoClient.connect(process.env.ATLAS_URI)
+  const atlasUri = process.env.ATLAS_URI ?? '' // Ensure ATLAS_URI is defined or use an empty string as fallback
+  MongoClient.connect(atlasUri)
     .then((client) => {
       db = client
       callback(null, db)
@@ -19,14 +20,14 @@ const initDb = (callback: (err: Error | null, db: any) => void) => {
     })
 }
 
-const getDb = () => {
-  if (!db) {
+const getDb = (): any => {
+  if (db === null || db === undefined) {
     throw Error('Db not initialized')
   }
   return db
 }
 
-module.exports = {
+export default {
   initDb,
   getDb
 }

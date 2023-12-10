@@ -1,20 +1,20 @@
-const mongodb = require('../db/connect');
+import mongodb from '../db/connect'
 
-const usernameExists = async (doctorUsername) => {
-    const doctor = await mongodb
-        .getDb()
-        .db('latammed')
-        .collection('doctors')
-        .find({ username: doctorUsername });
-        doctor.toArray().then((list) => {
-            if (list.length !== 0) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+export const usernameExists = async (doctorUsername: string): Promise<void> => {
+  const doctor = await mongodb
+    .getDb()
+    .db('latammed')
+    .collection('doctors')
+    .find({ username: doctorUsername })
+  doctor.toArray().then((list: any[]) => {
+    if (list.length !== 0) {
+      return true
+    } else {
+      return false
+    }
+  })
 }
 
-module.exports = {
-    usernameExists,
+export default {
+  usernameExists
 }
