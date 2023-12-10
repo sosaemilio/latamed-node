@@ -1,18 +1,19 @@
-import mongodb from '../db/connect';
+import { getDb } from '../db/connect';
 
 const usernameExists = async (doctorUsername: string): Promise<boolean> => {
-    const doctor = await mongodb
-        .getDb()
+    const doctor = await getDb()
         .db('latammed')
         .collection('doctors')
         .find({ username: doctorUsername });
-        doctor.toArray().then((list) => {
-            if (list.length !== 0) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+    const list = await doctor.toArray();
+    if (list.length !== 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-export { usernameExists };
+export {
+    usernameExists,
+}
+
