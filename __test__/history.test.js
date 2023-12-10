@@ -1,30 +1,42 @@
-// history.test.js
+// historyController.test.js
 const request = require('supertest');
-const express = require('express');
-const router = require('../routes/history');
-const app = express();
-
-const mongodb = require('../db/connect');
 const historyController = require('../controllers/history');
-const { Database } = require('../db/connect');
+const app = require('../app');
 
-jest.mock('../db/connect');
-jest.mock('../controllers/history');
+jest.mock('../db/connect', () => ({
+  getDb: jest.fn(() => ({
+    db: jest.fn(),
+    collection: jest.fn(() => ({
+      find: jest.fn(),
+      toArray: jest.fn(),
+      insertOne: jest.fn(),
+      replaceOne: jest.fn(),
+      remove: jest.fn(),
+    })),
+  })),
+}));
 
-const mockDb = {
-  db: jest.fn(),
-  collection: jest.fn(() => ({
-    find: jest.fn(),
-    insertOne: jest.fn(),
-    replaceOne: jest.fn(),
-    remove: jest.fn()
-  }))
-};
-
-Database.setDb(mockDb);
-mongodb.getDb.mockReturnValue(mockDb);
-
-app.use(express.json());
-app.use('/', router);
+jest.mock('../middleware/historyValidator', () => ({
+  historyAuthenticated: jest.fn((req, res, next) => next()),
+}));
 
 
+describe('History Controller', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should get history', async () => {
+    const response = await request(historyController.getHistory).get('/');
+    expect(response.statusCode).toBe(200);
+  },10000);
+
+  it('should get single history', async () => {
+    const response = await request(historyController.getSingleHistory).get('/1');
+    expect(response.statusCode).toBe(200);
+  },10000);
+
+  it('should create new information', async () => {
+    const response = await request(historyController.createNew
+    )}
+  )},10000)
