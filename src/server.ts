@@ -1,9 +1,9 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const routes = require('./routes/index')
-const mongodb = require('./db/connect')
-const { auth } = require('express-openid-connect')
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import routes from './routes/index'
+import mongodb from './db/connect'
+import { auth } from 'express-openid-connect'
 
 const app = express()
 const port = 3000
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(auth(config))
 app.use('/', routes)
 
-mongodb.initDb((err) => {
+mongodb.initDb((err: Error) => {
   if (err) {
     console.log(err)
   } else {
@@ -37,4 +37,4 @@ mongodb.initDb((err) => {
   }
 })
 
-module.exports = app
+export default app

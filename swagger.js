@@ -1,4 +1,6 @@
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerAutogen = require('swagger-autogen')
+
+swaggerAutogen()
 
 const doc = {
   info: {
