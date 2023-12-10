@@ -1,16 +1,26 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Movies API",
-    "description": "Emilio Sosa Movies API - BYUI",
+    "title": "LatamMed API",
+    "description": "Medical Appoinments API",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "latam-med.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
+    "/api-docs/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/patients/": {
       "get": {
         "description": "",
@@ -31,6 +41,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "422": {
+            "description": "Unprocessable Entity"
           },
           "500": {
             "description": "Internal Server Error"
@@ -53,11 +66,8 @@
           "200": {
             "description": "OK"
           },
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
+          "422": {
+            "description": "Unprocessable Entity"
           },
           "500": {
             "description": "Internal Server Error"
@@ -77,6 +87,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -93,6 +106,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -492,7 +508,7 @@
         }
       }
     },
-    "/doctors/{id}": {
+    "/doctors/{username}": {
       "get": {
         "description": "",
         "produces": [
@@ -500,7 +516,7 @@
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "username",
             "in": "path",
             "required": true,
             "type": "string"
@@ -509,12 +525,11 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
-      },
+      }
+    },
+    "/doctors/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -567,37 +582,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          }
-        }
-      }
-    },
-    "/doctors/{username}": {
-      "get": {
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api-docs/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
           }
         }
       }
